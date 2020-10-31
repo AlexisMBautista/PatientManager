@@ -1,24 +1,63 @@
 import { Fragment, useState} from 'react';
 const Form = () => {
 
-    const [quote, modifyquote] = useState({
+    //create appointment state
+    const [appointment , modifyappointment ] = useState({
         name: '',
         date: '',
         hour: '',
+        price: '',
         symptoms: ''
     });
 
+    const [error, modifyError] = useState(false);
+
+
+    //se ejecuta cada que un usuario escribe en el input
+    const modifyState = e => {
+        modifyappointment({
+            ...appointment,
+            [e.target.name]: e.target.value
+        });
+    }
+
+    //extracion de datos 
+    const {name, date, hour, price, symptoms} = appointment;
+
+    //funcion para agregar la cita
+    const submitAppointment = e =>{       
+        e.preventDefault();
+
+        //validar
+
+        if(name.trim() === '' || date.trim() === '' || hour.trim() === '' || price.trim() === '' || symptoms.trim() === ''){
+            modifyError(true);
+            return;  
+        }
+
+        //asignar ID
+
+        //Crear 
+
+        //limpiar el formulario
+    }
+
+
     return ( 
         <Fragment>
-            <h2>Crear Cita</h2>
+            <h3>Crear Consulta</h3>
 
-            <form>
+            { error ? <p className="alerta-error">Todos los campos son obligatorios</p> : null}
+
+            <form onSubmit={submitAppointment}>
                 <label>Nombre del Paciente</label>
                 <input 
                     type="text"
                     name="name"
                     className="u-full-width"
                     placeholder= "Nombre del Paciente"
+                    onChange= {modifyState}
+                    value= {name}
                 />
 
                 <label>Fecha</label>
@@ -26,18 +65,33 @@ const Form = () => {
                     type="date"
                     name="date"
                     className="u-full-width"
+                    onChange= {modifyState}
+                    value= {date}
                 />
                 <label>Hora</label>
                 <input 
                     type="time"
                     name="hour"
                     className="u-full-width"
+                    onChange= {modifyState}
+                    value= {hour}
+                />
+
+                <label>Precio</label>
+                <input 
+                    type="text"
+                    name="price"
+                    className="u-full-width"
+                    onChange= {modifyState}
+                    value= {price}
                 />
 
                 <label>Descripción de Sintomas</label>
                 <textarea  
                     name="symptoms"
                     className="u-full-width"
+                    onChange= {modifyState}
+                    value= {symptoms}
                 ></textarea>
 
                 <button type="submit" className="u-full-width button-primary">Agregar Cita</button>

@@ -7,7 +7,7 @@ function App() {
 
 
     <Fragment>
-      <h1>Administrador de Pacientes</h1>
+      <h3>Administrador de Pacientes</h3>
 
       <div className="container">
         <div className="row">
