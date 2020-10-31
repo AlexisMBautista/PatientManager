@@ -2,11 +2,10 @@ import { Fragment, useState} from 'react';
 const Form = () => {
 
     const [quote, modifyquote] = useState({
-        name='',
-        date='',
-        hour='',
-        symptoms=''
-
+        name: '',
+        date: '',
+        hour: '',
+        symptoms: ''
     });
 
     return ( 
