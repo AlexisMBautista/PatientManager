@@ -1,5 +1,9 @@
 import { Fragment, useState} from 'react';
-const Form = () => {
+import uuid from "react-uuid";
+import PropTypes from 'prop-types';
+
+
+const Form = ({createAppointment}) => {
 
     //create appointment state
     const [appointment , modifyappointment ] = useState({
@@ -29,17 +33,30 @@ const Form = () => {
         e.preventDefault();
 
         //validar
-
         if(name.trim() === '' || date.trim() === '' || hour.trim() === '' || price.trim() === '' || symptoms.trim() === ''){
             modifyError(true);
             return;  
         }
 
+        //Actualiza el mensaje
+        modifyError(false);
+
         //asignar ID
+        appointment.id = uuid();
 
         //Crear 
 
+        createAppointment(appointment);
+
         //limpiar el formulario
+
+        modifyappointment({
+            name: '',
+            date: '',
+            hour: '',
+            price: '',
+            symptoms: ''
+        });
     }
 
 
@@ -99,6 +116,11 @@ const Form = () => {
             </form>
         </Fragment>
      );
+}
+//siempre un prop-type se inicia por el nombre del componente, en forma de objeto
+
+Form.prototype = {
+    createAppointment: PropTypes.func.isRequired
 }
  
 export default Form;
